@@ -1,34 +1,51 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
+import Comment from "./Comment";
+import CommentForm from "./CommentForm";
+import useGetApi from "./useGetApi";
+import usePostApi from "./usePostApi";
 
-export default class Comments extends Component {
-  constructor() {
-    super();
-    this.state = { comments: [], currentComment: "" };
-  }
-  componentDidMount() {
-    // Call REST API here to get comments from database... Hint: use fetch()
-  }
-  render() {
-    // Change the static comments below to the actual comments from the database
-    // HINT: check out the React Docs on forms for help with adding a comment
-    // HINT 2: use the username passed down to this component from App.js as the username of the currently logged in user.
-    // This should be the username displayed when a new comment is entered.
-    return (
-      <div>
-        <ul>
-          <li>
-            <a href="/users/mario">mario</a>: It's a me
-          </li>
-          <li>
-            <a href="/users/yoshi">yoshi</a>: I commit tax fraud
-          </li>
-        </ul>
-        <div className="card-action">
-        <form className="comment-form">
-          <input type="text" value="" placeholder="Enter comment here" />
-        </form>
-        </div>
+export default function Comments({ username, url }) {
+  const { data, loading, refetch } = useGetApi(url);
+  const [text, setText] = useState("");
+
+  const [postComment, { loading: posting }] = usePostApi(url);
+
+  const handleSubmit = async (ev) => {
+    ev.preventDefault();
+
+    await postComment({
+      body: {
+        username,
+        text,
+      },
+    });
+
+    setText("");
+    await refetch();
+  };
+
+  return (
+    <div>
+      {loading && <p>Loading...</p>}
+      <ul>
+        {data &&
+          Object.keys(data).map((key) => (
+            <Comment
+              text={data[key].text}
+              username={data[key].username}
+              key={key}
+            />
+          ))}
+      </ul>
+
+      <div className="card-action">
+        <CommentForm
+          value={text}
+          setValue={setText}
+          disabled={posting}
+          handleSubmit={handleSubmit}
+        />
       </div>
-    );
-  }
+    </div>
+  );
 }
