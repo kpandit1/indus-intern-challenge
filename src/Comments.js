@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 
 export default class Comments extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = { comments: [], currentComment: "" };
   }
   componentDidMount() {
