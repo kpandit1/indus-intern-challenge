@@ -24,9 +24,9 @@ export default class Comments extends Component {
           </li>
         </ul>
         <div className="card-action">
-        <form className="comment-form">
-          <input type="text" value="" placeholder="Enter comment here" />
-        </form>
+          <form className="comment-form">
+            <input type="text" value="" placeholder="Enter comment here" />
+          </form>
         </div>
       </div>
     );
