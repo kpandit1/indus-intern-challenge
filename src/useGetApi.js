@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 
-export default function getApi(url) {
+export default function useGetApi(url) {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState(false);
 
@@ -14,7 +14,7 @@ export default function getApi(url) {
 
   useEffect(() => {
     refetch();
-  }, [refetch()]);
+  }, [refetch]);
 
   return { data, loading, refetch };
 }
