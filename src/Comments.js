@@ -1,19 +1,48 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import Comment from "./Comment";
 import CommentForm from "./CommentForm";
 import useGetApi from "./useGetApi";
+import usePostApi from "./usePostApi";
 
-export default function Comments() {
-  const { data, loading } = useGetApi(
-    "https://kaaro-intern-challenge.firebaseio.com/comments.json"
-  );
+export default function Comments({ username, url }) {
+  const { data, loading, refetch } = useGetApi(url);
+  const [text, setText] = useState("");
+
+  const [postComment, { loading: posting }] = usePostApi(url);
+
+  const handleSubmit = async (text) => {
+    await postComment({
+      body: {
+        username,
+        text,
+      },
+    });
+
+    setText("");
+    await refetch();
+  };
 
   return (
     <div>
-      <ul></ul>
+      {loading && <p>Loading...</p>}
+      <ul>
+        {data &&
+          Object.keys(data).map((key) => (
+            <Comment
+              text={data[key].text}
+              username={data[key].username}
+              key={key}
+            />
+          ))}
+      </ul>
 
       <div className="card-action">
-        <CommentForm />
+        <CommentForm
+          value={text}
+          setValue={setText}
+          disabled={posting}
+          handleSubmit={handleSubmit}
+        />
       </div>
     </div>
   );

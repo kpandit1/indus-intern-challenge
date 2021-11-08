@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 
 export default function useGetApi(url) {
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState(false);
+  const [data, setData] = useState(null);
 
   const refetch = useCallback(() => {
     setLoading(true);

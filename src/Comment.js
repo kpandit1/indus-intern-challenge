@@ -5,7 +5,7 @@ export default function Comment({ username, text }) {
 
   return (
     <li>
-      <a href={`/users/` + safeUsername}>mario</a>: {text}
+      <a href={`/users/` + safeUsername}>{username}</a>: {text}
     </li>
   );
 }

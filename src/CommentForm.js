@@ -1,21 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 
-export default function CommentForm({ handleSubmit }) {
-  const [comment, setComment] = useState("");
-
-  const onChange = (ev) => setComment(ev.target.value);
-
-  const onSubmit = (ev) => {
-    ev.preventDefault();
-    handleSubmit(comment);
-  };
-
+export default function CommentForm({
+  value,
+  setValue,
+  handleSubmit,
+  disabled,
+}) {
   return (
-    <form className="comment-form" onSubmit={onSubmit}>
+    <form
+      className="comment-form"
+      onSubmit={handleSubmit}
+      aria-disabled={String(disabled)}
+    >
       <input
+        disabled={disabled}
         type="text"
-        value={comment}
-        onChange={onChange}
+        value={value}
+        onChange={(ev) => setValue(ev.target.value)}
         placeholder="Enter comment here"
       />
     </form>
