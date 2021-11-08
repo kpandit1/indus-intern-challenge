@@ -10,7 +10,9 @@ export default function Comments({ username, url }) {
 
   const [postComment, { loading: posting }] = usePostApi(url);
 
-  const handleSubmit = async (text) => {
+  const handleSubmit = async (ev) => {
+    ev.preventDefault();
+
     await postComment({
       body: {
         username,
