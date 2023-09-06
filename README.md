@@ -1,4 +1,4 @@
-# Kaaro Intern Coding Challenge
+# Indus Intern Coding Challenge
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Goal
@@ -23,8 +23,8 @@ curl -X POST -d '
 
 To install, first clone the repository by typing the following on the command line.
 ```
-git clone https://github.com/kpandit1/kaaro-intern-challenge/
-cd kaaro-intern-challenge
+git clone https://github.com/kpandit1/indus-intern-challenge/
+cd indus-intern-challenge
 ```
 
 Next, create a branch with your name
